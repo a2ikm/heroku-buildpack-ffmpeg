@@ -7,17 +7,17 @@ indent() {
 echo "-----> Install ffmpeg"
 BUILD_DIR=$1
 VENDOR_DIR="vendor"
-VERSION="2.5.3"
-DOWNLOAD_URL="http://johnvansickle.com/ffmpeg/releases/ffmpeg-${VERSION}-64bit-static.tar.xz"
+DOWNLOAD_URL="https://dl.dropboxusercontent.com/u/469156/heroku-buildpacks/ffmpeg2.5.3-64bit-static.tar.gz"
 
 echo "DOWNLOAD_URL = " $DOWNLOAD_URL | indent
 
 cd $BUILD_DIR
 mkdir -p $VENDOR_DIR
 cd $VENDOR_DIR
-curl -L --silent $DOWNLOAD_URL | tar -xJ
+curl -L --silent $DOWNLOAD_URL | tar xz
 
 echo "exporting PATH and LIBRARY_PATH" | indent
 PROFILE_PATH="$BUILD_DIR/.profile.d/ffmpeg.sh"
 mkdir -p $(dirname $PROFILE_PATH)
-echo "export PATH=\"$PATH:vendor/ffmpeg-${VERSION}-64bit-static\"" >> $PROFILE_PATH
+echo 'export PATH="$PATH:$HOME/vendor/ffmpeg/bin"' >> $PROFILE_PATH
+
